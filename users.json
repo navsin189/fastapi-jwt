@@ -3,5 +3,15 @@
         "username": "firstuser",
         "email": "firstuser@api.com",
         "hashed_password": "$2b$12$k3URBGuqRFrOOXWHWKyTJOkPgWsHh75Hm6s5K.b1Nzp2Rkhc0MXB6"
+    },
+    "n@m.com": {
+        "username": "naveen",
+        "email": "n@m.com",
+        "hashed_password": "$2b$12$UW1ecc8DjY8CjEr5pBpyQucs48cGjwC4A7glq79bbeRTPqnc.3E/W"
+    },
+    "s@m.com": {
+        "username": "naveen",
+        "email": "s@m.com",
+        "hashed_password": "$2b$12$I5.r54jeyxMrfeNO8drHC.ObmN9Tddx51OGsup9HknEK7QF/WOp9e"
     }
 }

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Request, Response, Form
+from fastapi import FastAPI, Depends, HTTPException, status, Form, Request, Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -8,7 +8,7 @@ import aiofiles
 import json
 
 # JWT configuration
-SECRET_KEY = "b@ckenD!nFastAP!"
+SECRET_KEY = "your_secret_key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -26,7 +26,6 @@ class TokenData(BaseModel):
 class User(BaseModel):
     username: str
     email: str
-    hashed_password: str
 
 class UserInDB(User):
     hashed_password: str
@@ -90,8 +89,17 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return user
 
 @app.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = await authenticate_user(form_data.username, form_data.password)
+async def login_for_access_token(request: Request, form_data: OAuth2PasswordRequestForm = Depends()):
+    content_type = request.headers.get('Content-Type')
+    if content_type == "application/json":
+        body = await request.json()
+        email = body.get("email")
+        password = body.get("password")
+    else:
+        email = form_data.username
+        password = form_data.password
+
+    user = await authenticate_user(email, password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -105,13 +113,32 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/api/signup", status_code=status.HTTP_201_CREATED)
-async def api_signup(email: str = Form(...), name: str = Form(...), password: str = Form(...)):
+async def api_signup(request: Request):
+    content_type = request.headers.get('Content-Type')
+    if content_type == "application/json":
+        body = await request.json()
+        email = body.get("email")
+        name = body.get("name")
+        password = body.get("password")
+    else:
+        form = await request.form()
+        email = form.get("email")
+        name = form.get("name")
+        password = form.get("password")
+
+    if not email or not name or not password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email, name, and password are required",
+        )
+
     credentials = await get_credentials()
     if email in credentials:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email already registered",
         )
+
     hashed_password = get_password_hash(password)
     credentials[email] = {
         "username": name,
