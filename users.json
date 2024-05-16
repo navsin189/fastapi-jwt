@@ -1,0 +1,7 @@
+{
+    "firstuser@api.com": {
+        "username": "firstuser",
+        "email": "firstuser@api.com",
+        "hashed_password": "$2b$12$k3URBGuqRFrOOXWHWKyTJOkPgWsHh75Hm6s5K.b1Nzp2Rkhc0MXB6"
+    }
+}

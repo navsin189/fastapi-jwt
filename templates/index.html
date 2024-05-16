@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/logo.svg">
+    <title>Nirvana</title>
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background: url('/static/forest.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 1);
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure it stays on top of other elements */
+        }
+
+        .navbar img {
+            height: 40px;
+        }
+
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .icon img {
+            height: 32px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .icon:hover .dropdown-content {
+            display: block;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .welcome {
+            font-size: 24px;
+            padding: 20px;
+        }
+
+        .login-signup {
+            margin-top: 20px;
+        }
+
+        .login-signup a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .login-signup a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="/static/logo.svg" alt="Logo">
+        <div class="icons">
+            <div class="icon">
+                <img src="/static/home.svg" alt="Home">
+            </div>
+            <div class="icon">
+                <img src="/static/user.svg" alt="User">
+                <div class="dropdown-content">
+                    <a href="#">Login</a>
+                    <a href="#">Signup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="welcome">
+            Welcome, Bienvenue, Willkommen, Bienvenido, 欢迎, ようこそ, 환영합니다, Добро пожаловать, Benvenuto, स्वागत है
+        </div>
+        <div class="login-signup">
+            <p>If you are not registered, please <a href="login">Login</a> or <a href="/signup">Signup</a></p>
+        </div>
+    </div>
+</body>
+</html>
